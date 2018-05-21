@@ -4,12 +4,12 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class HelloWorldController {
 
     private static final String template = "Hello, %s!";
@@ -17,13 +17,13 @@ public class HelloWorldController {
 
     private static boolean isHealth = true;
 
-    @GetMapping("/hello-world")
+    @RequestMapping("/hello-world")
     @ResponseBody
     public Greeting sayHello(@RequestParam(name = "name", required = false, defaultValue = "Stranger") String name) {
         return new Greeting(counter.incrementAndGet(), String.format(template, name));
     }
 
-    @GetMapping("/health")
+    @RequestMapping("/health")
     @ResponseBody
     public ResponseEntity<String> check() {
 
@@ -36,7 +36,7 @@ public class HelloWorldController {
 
     }
 
-    @GetMapping("/switch-health")
+    @RequestMapping("/switch-health")
     @ResponseBody
     public ResponseEntity<String> switchHealth() {
 
